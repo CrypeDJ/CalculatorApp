@@ -20,29 +20,12 @@ import com.crype.calculator.presentation.ui.theme.backgroundTheme
 import com.crype.calculator.presentation.ui.theme.inputColor
 import com.crype.calculator.presentation.ui.theme.lineColor
 import com.crype.calculator.presentation.ui.theme.resultColor
+import com.crype.calculator.presentation.viewmodel.CalculatorViewModel
 
-class MainActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-            CalculatorTheme {
-                Surface(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(16.dp),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    CalculatorScreen()
-                }
-            }
-        }
-    }
-}
 @Preview
 @Composable
-fun CalculatorScreen() {
-    var input by remember { mutableStateOf("") }
-    var result by remember { mutableStateOf("") }
+fun CalculatorScreen(viewModel: CalculatorViewModel = remember { CalculatorViewModel() }) {
+    val state = viewModel.state
 
     Column(
         modifier = Modifier
@@ -52,7 +35,7 @@ fun CalculatorScreen() {
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         Text(
-            text = "2+7",
+            text = state.value.input,
             fontSize = 45.sp,
             textAlign = TextAlign.End,
             modifier = Modifier
@@ -62,7 +45,7 @@ fun CalculatorScreen() {
             color = inputColor
         )
         Text(
-            text = "9",
+            text = state.value.result,
             fontSize = 45.sp,
             textAlign = TextAlign.End,
             modifier = Modifier
@@ -80,17 +63,11 @@ fun CalculatorScreen() {
 
         )
         CalculatorKeyboard(
-            onInput = { char ->
-                if (char == "C") {
-                    input = ""
-                    result = ""
-                } else if (char == "=") {
-                    // Here you can add your evaluation logic
-                    result = input // This is a placeholder
-                } else {
-                    input += char
-                }
-            }
+            onDigitClick = viewModel::onDigitClick,
+            onClear = viewModel::onClear,
+            onOperationClick = viewModel::onOperationClick,
+            onEqualsClick = viewModel::onEqualsClick,
+            onPlusMinusClick = viewModel::onPlusMinusClick
         )
     }
 }
