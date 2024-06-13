@@ -17,7 +17,8 @@ fun CalculatorKeyboard(
     onOperationClick: (String) -> Unit,
     onEqualsClick: () -> Unit,
     onPlusMinusClick: () -> Unit,
-    onPercentClick:() -> Unit
+    onPercentClick:() -> Unit,
+    onPointClick:() -> Unit
 ) {
     val buttons = listOf(
         listOf("C", "+/-", "%", "÷"),
@@ -27,25 +28,23 @@ fun CalculatorKeyboard(
         listOf("0", ".", "=")
     )
 
-    val bottomButtons = listOf("0", ".", "=")
-
     Column(
         modifier = Modifier
             .fillMaxWidth()
             .padding(20.dp),
-        verticalArrangement = Arrangement.spacedBy(20.dp)
+        verticalArrangement = Arrangement.spacedBy(18.dp)
     ) {
         buttons.forEach { row ->
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(20.dp)
+                horizontalArrangement = Arrangement.spacedBy(18.dp)
             ) {
                 row.forEach { label ->
                     CalculatorButton(
                         label = label,
                         modifier = Modifier
-                            .weight(if (label == "=") 2f else 1f)
-                            .aspectRatio(if (label == "=") 2f else 1f),
+                            .weight(if (label == "=") 2.25f else 1f)
+                            .aspectRatio(if (label == "=") 2.25f else 1f),
                         onClick = {
                             when (label) {
                                 "C" -> onClear()
@@ -53,6 +52,7 @@ fun CalculatorKeyboard(
                                 "+/-" -> onPlusMinusClick()
                                 "÷", "×", "-", "+" -> onOperationClick(label)
                                 "%" -> onPercentClick()
+                                "." -> onPointClick()
                                 else -> onDigitClick(label)
                             }
                         }

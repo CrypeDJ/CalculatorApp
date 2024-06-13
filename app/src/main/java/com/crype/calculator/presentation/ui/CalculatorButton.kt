@@ -34,7 +34,7 @@ fun CalculatorButton(
 
     Box(
         modifier = modifier
-            .background(backgroundColor, shape = RoundedCornerShape(8.dp))
+            .background(backgroundColor, shape = RoundedCornerShape(16.dp))
             .clickable { onClick() },
         contentAlignment = Alignment.Center
     ) {

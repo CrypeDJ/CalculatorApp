@@ -32,4 +32,7 @@ class CalculatorViewModel {
     fun onPercentClick() {
         _state.value = useCases.onPercentClick(_state.value)
     }
+    fun onPointClick(){
+        _state.value = useCases.onPointClick(_state.value)
+    }
 }
