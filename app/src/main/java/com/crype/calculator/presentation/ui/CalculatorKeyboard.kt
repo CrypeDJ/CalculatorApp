@@ -16,7 +16,8 @@ fun CalculatorKeyboard(
     onClear: () -> Unit,
     onOperationClick: (String) -> Unit,
     onEqualsClick: () -> Unit,
-    onPlusMinusClick: () -> Unit
+    onPlusMinusClick: () -> Unit,
+    onPercentClick:() -> Unit
 ) {
     val buttons = listOf(
         listOf("C", "+/-", "%", "÷"),
@@ -50,7 +51,8 @@ fun CalculatorKeyboard(
                                 "C" -> onClear()
                                 "=" -> onEqualsClick()
                                 "+/-" -> onPlusMinusClick()
-                                "/", "x", "-", "+", "%" -> onOperationClick(label)
+                                "÷", "×", "-", "+" -> onOperationClick(label)
+                                "%" -> onPercentClick()
                                 else -> onDigitClick(label)
                             }
                         }
@@ -60,3 +62,5 @@ fun CalculatorKeyboard(
         }
     }
 }
+
+

@@ -1,13 +1,8 @@
 package com.crype.calculator.presentation.ui
 
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Divider
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -15,7 +10,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.crype.calculator.presentation.ui.theme.CalculatorTheme
 import com.crype.calculator.presentation.ui.theme.backgroundTheme
 import com.crype.calculator.presentation.ui.theme.inputColor
 import com.crype.calculator.presentation.ui.theme.lineColor
@@ -67,7 +61,8 @@ fun CalculatorScreen(viewModel: CalculatorViewModel = remember { CalculatorViewM
             onClear = viewModel::onClear,
             onOperationClick = viewModel::onOperationClick,
             onEqualsClick = viewModel::onEqualsClick,
-            onPlusMinusClick = viewModel::onPlusMinusClick
+            onPlusMinusClick = viewModel::onPlusMinusClick,
+            onPercentClick = viewModel::onPercentClick
         )
     }
 }

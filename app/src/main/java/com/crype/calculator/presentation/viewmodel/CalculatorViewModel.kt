@@ -15,7 +15,7 @@ class CalculatorViewModel {
     }
 
     fun onClear() {
-        _state.value = useCases.onClear()
+        _state.value = useCases.onClear(_state.value)
     }
 
     fun onOperationClick(operation: String) {
@@ -28,5 +28,8 @@ class CalculatorViewModel {
 
     fun onPlusMinusClick() {
         _state.value = useCases.onPlusMinusClick(_state.value)
+    }
+    fun onPercentClick() {
+        _state.value = useCases.onPercentClick(_state.value)
     }
 }
