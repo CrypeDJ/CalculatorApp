@@ -41,14 +41,13 @@ class CalculatorUseCases {
         return if (isFirstValue) {
             secondValue = state.input.toFloat()
             firstValue = expression(operation)
-
+            isOperationClicked = true
             isNewValue = true
             sign = operation
             state.copy(result = floatToString(firstValue))
         } else {
             firstValue = state.input.toFloat()
             isFirstValue = true
-            isOperationClicked = true
             isNewValue = true
             sign = operation
             state
@@ -63,7 +62,7 @@ class CalculatorUseCases {
         } else {
             state.input.toFloat()
         }
-
+        isNewValue = true
         isOperationClicked = true
         return state.copy(result = floatToString(firstValue))
     }
