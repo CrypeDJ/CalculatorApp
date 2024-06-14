@@ -11,13 +11,18 @@ class CalculatorUseCases {
     private var secondValue: Float = 0f
     private var sign: String = ""
     fun onDigitClick(state: CalculatorState, digit: String): CalculatorState {
-        return if (isMaxLength(state.input)) state
-        else if (isNewValue) {
-            isOperationClicked = false
+        isOperationClicked = false
+
+        if (isMaxLength(state.input)) return state
+
+        val newInput = if (isNewValue) {
             isNewValue = false
-            state.copy(input = digit)
+            digit
+        } else {
+            state.input + digit
         }
-        else state.copy(input = state.input + digit)
+
+        return state.copy(input = newInput)
     }
 
     fun onClear(state: CalculatorState): CalculatorState {
@@ -31,33 +36,35 @@ class CalculatorUseCases {
     }
 
     fun onOperationClick(state: CalculatorState, operation: String): CalculatorState {
-        return if (state.input.isEmpty() || isOperationClicked) {
-            sign = operation
-            state
-        }
-        else if (isFirstValue){
+        if (state.input.isEmpty() || isOperationClicked) return state
+
+        return if (isFirstValue) {
             secondValue = state.input.toFloat()
             firstValue = expression(operation)
-            sign = operation
+
             isNewValue = true
-            isOperationClicked = true
+            sign = operation
             state.copy(result = floatToString(firstValue))
         } else {
             firstValue = state.input.toFloat()
             isFirstValue = true
-
+            isOperationClicked = true
             isNewValue = true
+            sign = operation
             state
         }
     }
 
     fun onEqualsClick(state: CalculatorState): CalculatorState {
         if (state.input.isEmpty()) return state
-        else if (isFirstValue){
+        firstValue = if (isFirstValue) {
             secondValue = state.input.toFloat()
-            firstValue = expression(sign)
+            expression(sign)
+        } else {
+            state.input.toFloat()
         }
-        else firstValue = state.input.toFloat()
+
+        isOperationClicked = true
         return state.copy(result = floatToString(firstValue))
     }
 
@@ -74,17 +81,17 @@ class CalculatorUseCases {
     }
 
     fun onPointClick (state: CalculatorState): CalculatorState {
-        return if (state.input.contains('.') || isMaxLength(state.input)) state
-        else if (state.input.isEmpty() || isNewValue){
-            isNewValue = false
-            isOperationClicked = false
-            state.copy(input = "0.")
+        if (state.input.contains('.') || isMaxLength(state.input)) return state
+        val newInput = when {
+            state.input.isEmpty() || isNewValue -> {
+                isNewValue = false
+                "0."
+            }
+            else -> state.input + "."
         }
 
-        else {
-            isOperationClicked = false
-            state.copy(input = state.input + ".")
-        }
+        isOperationClicked = false
+        return state.copy(input = newInput)
 
     }
     fun onPercentClick(state: CalculatorState):CalculatorState{

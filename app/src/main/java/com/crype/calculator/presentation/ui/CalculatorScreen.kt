@@ -3,9 +3,11 @@ package com.crype.calculator.presentation.ui
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Divider
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -21,7 +23,6 @@ import com.crype.calculator.presentation.viewmodel.CalculatorViewModel
 @Composable
 fun CalculatorScreen(viewModel: CalculatorViewModel = remember { CalculatorViewModel() }) {
     val state = viewModel.state
-
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -38,7 +39,7 @@ fun CalculatorScreen(viewModel: CalculatorViewModel = remember { CalculatorViewM
                 .padding(20.dp),
             color = inputColor,
             maxLines = 1,
-            overflow = TextOverflow.Visible,
+            overflow = TextOverflow.Ellipsis,
         )
         Text(
             text = state.value.result,
@@ -51,6 +52,7 @@ fun CalculatorScreen(viewModel: CalculatorViewModel = remember { CalculatorViewM
             color = resultColor,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
+
         )
         Spacer(modifier = Modifier.height(8.dp))
         Divider(
@@ -74,13 +76,16 @@ fun CalculatorScreen(viewModel: CalculatorViewModel = remember { CalculatorViewM
 @Composable
 fun calculatingFontSize(input:String): Float {
     return when (input.length){
-        10 -> 57f
-        11 -> 53f
-        12 -> 49f
-        13,14 -> 45f
+        10 -> 53f
+        11 -> 49f
+        12 -> 45f
+        13,14 -> 41f
         else -> 60f
     }
 }
+
+
+
 
 
 
