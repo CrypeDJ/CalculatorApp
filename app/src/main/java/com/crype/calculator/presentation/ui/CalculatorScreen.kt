@@ -74,9 +74,10 @@ fun CalculatorScreen(viewModel: CalculatorViewModel = remember { CalculatorViewM
 @Composable
 fun calculatingFontSize(input:String): Float {
     return when (input.length){
-        11 -> 55f
-        12 -> 50.5f
-        13 -> 47f
+        10 -> 57f
+        11 -> 53f
+        12 -> 49f
+        13,14 -> 45f
         else -> 60f
     }
 }

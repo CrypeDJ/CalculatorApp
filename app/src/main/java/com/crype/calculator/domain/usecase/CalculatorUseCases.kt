@@ -7,11 +7,9 @@ class CalculatorUseCases {
     private var isNewValue = false
     private var isOperationClicked = false
     private var isFirstValue: Boolean = false
-    private var isSecondValue: Boolean = false
     private var firstValue: Float = 0f
     private var secondValue: Float = 0f
     private var sign: String = ""
-    private var resultValue: Int = 0
     fun onDigitClick(state: CalculatorState, digit: String): CalculatorState {
         return if (isMaxLength(state.input)) state
         else if (isNewValue) {
@@ -64,7 +62,6 @@ class CalculatorUseCases {
     }
 
     fun onPlusMinusClick(state: CalculatorState): CalculatorState {
-        if (isMaxLength(state.input)) return state
         var number: String
         number = if (state.input.startsWith("-")) {
             state.input.substring(1)
